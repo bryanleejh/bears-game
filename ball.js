@@ -13,6 +13,7 @@ var Ball = function(settings) {
 */
 
     function wall() {
+      //getBoundingClientRect determines boundaries
       var ballRect = ballElement.getBoundingClientRect();
       var w = parseInt(window.innerWidth);
       var h = parseInt(window.innerHeight);
@@ -32,7 +33,6 @@ var Ball = function(settings) {
       if(ballRect.right > w){
           ballElement.style.left = ( w - ballRect.width) + 'px' ;
       }
-
     }
 
     // Move the ball around manually
@@ -65,8 +65,14 @@ var Ball = function(settings) {
     function init(){
       // create();
       ballElement = document.getElementById('ball');
-      ballElement.style.top = '400px';
+      ballElement.style.top = '0px';
       ballElement.style.left = '400px';
+      ballElement.style.height = '100px';
+      
+      //this is why only ball2 is controlled
+      ballElement = document.getElementById('ball2');
+      ballElement.style.top = '0px';
+      ballElement.style.left = '200px';
       ballElement.style.height = '100px';
     }
 

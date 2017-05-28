@@ -8,8 +8,10 @@ var Game = function() {
 
     // World settings
     var assets = [];                      // All game objects
-    var player = new Ball(settings);      // The player
-    assets[0] = player;
+    var player1 = new Ball(settings);      // The player
+    var player2 = new Ball(settings);
+    assets[0] = player1;
+    assets[1] = player2;
     var frame = 0;                        // Frames since the start of the game
 
     // Interactions
