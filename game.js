@@ -1,5 +1,4 @@
 var Game = function() {
-
     // Game settings
     var settings = {};                     // Containes all game settings
     settings.ballSpeed = 8;                // The speed of the ball
@@ -23,7 +22,6 @@ var Game = function() {
 
     // Setup event listeners
     function setupEvents() {
-
       document.addEventListener('keyup', function(event){
         var keyName = event.key;
 
@@ -65,14 +63,7 @@ var Game = function() {
               break;
         }
       });
-
-
-
-
-
     }
-
-
 
     // Startup the game
     function init(){
@@ -81,7 +72,6 @@ var Game = function() {
 
     // The render function. It will be called 60/sec
     function render(){
-
       for(var i=0; i < assets.length; i++){
         assets[i].render(interactions);
       }
@@ -91,11 +81,10 @@ var Game = function() {
       return  window.requestAnimationFrame       ||
               window.webkitRequestAnimationFrame ||
               window.mozRequestAnimationFrame    ||
-              function( callback ){
+              function(callback){
                 window.setTimeout(callback, 1000 / 60);
               };
             })();
-
 
             (function animloop(){
               requestAnimFrame(animloop);

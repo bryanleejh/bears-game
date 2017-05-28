@@ -1,10 +1,7 @@
 var Ball = function(settings) {
-
     // Settings
     var ballElement = null;
     var bullets = [];
-
-
 
     /*
     bottom:265
@@ -16,7 +13,6 @@ var Ball = function(settings) {
 */
 
     function wall() {
-
       var ballRect = ballElement.getBoundingClientRect();
       var w = parseInt(window.innerWidth);
       var h = parseInt(window.innerHeight);
@@ -37,15 +33,10 @@ var Ball = function(settings) {
           ballElement.style.left = ( w - ballRect.width) + 'px' ;
       }
 
-
-
-
-
     }
 
     // Move the ball around manually
     function move(interactions){
-
       if(interactions.up){
         ballElement.style.top = parseInt(ballElement.style.top)-8+"px";
       }
@@ -67,7 +58,6 @@ var Ball = function(settings) {
       }
     }
 
-
     function create() {
         // Create the object asset
     }
@@ -78,7 +68,6 @@ var Ball = function(settings) {
       ballElement.style.top = '400px';
       ballElement.style.left = '400px';
       ballElement.style.height = '100px';
-
     }
 
     this.render = function(interactions){
