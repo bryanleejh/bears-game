@@ -4,6 +4,7 @@ var Player = function(settings) {
     var playerElement = null;
     var cannonAngle = 0;
     var cannonPower = 0;
+    var adjustedAngle = 0;
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -49,16 +50,18 @@ var Player = function(settings) {
       if(interactions.left){
         cannonElement.style.transform = 'rotate(' + (parseInt(cannonAngle)+1) + 'deg)';
         cannonAngle = (cannonAngle + 1)%360;
-        playerElement.innerHTML = 'angle: ' + cannonAngle;
+        adjustedAngle = 90 - cannonAngle;
+        playerElement.innerHTML = 'angle: ' + adjustedAngle;
       }
 
       if(interactions.right){
         cannonElement.style.transform = 'rotate(' + (parseInt(cannonAngle)-1) + 'deg)';
         cannonAngle = (cannonAngle - 1)%360;
-        playerElement.innerHTML = 'angle: ' + cannonAngle;
+        adjustedAngle = 90 - cannonAngle;
+        playerElement.innerHTML = 'angle: ' + adjustedAngle;
       }
 
-      console.log(interactions.z);
+      
       if(interactions.z){
         fire();
       }
@@ -69,31 +72,31 @@ var Player = function(settings) {
     }
 
     function create() {
-        // Create the object asset
-    }
-
-    function fire() {
-      var bullet1 = new Bullet(settings,200,
-        200,cannonPower,cannonAngle);
-      console.log("fired!");
-      console.log(bullet1);
-      g.assets.push(bullet1);
-    }
-
-    function init(){
-      // create();
+      // Create the object asset
       cannonElement = document.getElementById('cannon1');
-      cannonElement.style.bottom = '75px';
-      cannonElement.style.left = '415px';
+      cannonElement.style.bottom = '25px';
+      cannonElement.style.left = '115px';
       cannonElement.style.height = '50px';
       cannonElement.style.width = '20px';
       cannonElement.style.transform = 'rotate(0deg)';
       cannonAngle = 0;
+      adjustedAngle = 90 - cannonAngle;
       playerElement = document.getElementById('player1');
-      playerElement.style.bottom = '50px';
-      playerElement.style.left = '400px';
+      playerElement.style.bottom = '0px';
+      playerElement.style.left = '100px';
       playerElement.style.height = '50px';
       playerElement.style.width = '50px';
+    }
+
+    function fire() {
+      var bullet1 = new Bullet(settings,120,
+        50,cannonPower,adjustedAngle);
+      g.assets.push(bullet1);
+    }
+
+    function init(){
+      create();
+      
 
     }
 

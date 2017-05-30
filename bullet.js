@@ -1,10 +1,11 @@
-var Bullet = function(settings, x, y, power, angle) {
+var Bullet = function(settings, startX, startY, power, angle) {
     // Settings
     var bulletElement = null;
-    var bulletDX = 0;
-    var bulletDY = 0;
-    var bulletRadians = 0;
-    var height = 0;
+    var Vx = 0;
+    var Vy = 0;
+    var y = startY;
+    var x = startX;
+    var radians = 0;
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -13,52 +14,31 @@ var Bullet = function(settings, x, y, power, angle) {
       var h = parseInt(window.innerHeight);
 
       if(bulletRect.bottom > h){
-        bulletElement.style.top = (h-bulletRect.height) + 'px';
+        document.getElementById('gameboard').removeChild(bulletElement);
       }
 
       if(bulletRect.top < 0){
-        bulletElement.style.top = '0px';
+        document.getElementById('gameboard').removeChild(bulletElement);
       }
 
       if(bulletRect.left < 0){
-          bulletElement.style.left = '0px';
+          document.getElementById('gameboard').removeChild(bulletElement);
       }
 
       if(bulletRect.right > w){
-          bulletElement.style.left = ( w - bulletRect.width) + 'px' ;
+          document.getElementById('gameboard').removeChild(bulletElement);
       }
     }
 
-    // Move the ball around manually
     function move(interactions){
-      //change in x positive, move right
-      if(bulletDX>0){
-        bulletElement.style.left = parseInt(bulletElement.style.left)+1+'px';
-        console.log(bulletElement.style.left);
-        bulletDX = bulletDX - 1;
-      }
-
-      //change in x negative, move left
-      if(bulletDX<0){
-        bulletElement.style.left = parseInt(bulletElement.style.left)+1+'px';
-        console.log(bulletElement.style.left);
-        bulletDX = bulletDX + 1;
-      }
-
-      //change in y positive, move up
-      if(bulletDY>0){
-        bulletElement.style.top = parseInt(bulletElement.style.top)-1+'px';
-        console.log(bulletElement.style.top);
-        bulletDY = bulletDY - 1;
-      }
-
-      if(bulletDY==0){
-        if(height>0) {
-          bulletElement.style.top = parseInt(bulletElement.style.top)+1+'px';
-          console.log(bulletElement.style.top);
-          height = height - 1;
-        }
-      }
+      //while no collision or no wall, keep flying
+      var flightTime = settings.frame - startTime;
+      flightTime = flightTime/12;
+      x = startX + Vx * flightTime;
+      //s = ut - 1/2at^2
+      y = startY + Vy * flightTime - (0.5)*(settings.gravity)*(flightTime)*(flightTime);
+      bulletElement.style.left = x + 'px';
+      bulletElement.style.bottom = y + 'px';
 
       if(settings.walls){
         wall();
@@ -76,32 +56,25 @@ var Bullet = function(settings, x, y, power, angle) {
     function init(){
       // create();
       bulletElement = document.createElement('div');
-      bulletElement.className = 'bullet';
+      bulletElement.className = 'bulletElem';
       //starting position of bullet
-      bulletElement.style.top = y + 'px';
+      bulletElement.style.bottom = y + 'px';
+      console.log(bulletElement.style.bottom);
       bulletElement.style.left = x + 'px';
-      bulletRadians = toRadians(angle);
-      console.log(bulletRadians);
-      bulletDX = power * Math.cos(bulletRadians); //how much its going up
-      bulletDX = Math.floor(bulletDX);
-      console.log(bulletDX);
-      bulletDY = power * Math.sin(bulletRadians); //how much its going laterally
-      bulletDY = Math.floor(bulletDY);
-      height = bulletDY;
-      console.log(bulletDY);
+      console.log(bulletElement.style.left);
+      bulletElement.style.borderRadius = '50%';
+      radians = toRadians(angle);
+      Vx = power * Math.cos(radians); //how much its going up
+      Vx = Math.floor(Vx);
+      Vy = power * Math.sin(radians); //how much its going laterally
+      Vy = Math.floor(Vy);
+      height = Vy;
+      startTime = settings.frame;
       document.getElementById('gameboard').appendChild(bulletElement);
-      // bulletElement = document.getElementById('ball');
-      // bulletElement.style.top = '100px';
-      // bulletElement.style.left = '400px';
-      // bulletElement.style.height = '10px';
-      // bulletElement.style.width = '100px';
-      // bulletElement.style.transform = 'rotate(0deg)';
-      // ballRotation = 0;
     }
 
     this.render = function(interactions){
       move(interactions);
-      console.log("move called");
     }
 
     init();
