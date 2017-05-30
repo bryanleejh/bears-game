@@ -22,11 +22,11 @@ var Bullet = function(settings, startX, startY, power, angle) {
       }
 
       if(bulletRect.left < 0){
-          document.getElementById('gameboard').removeChild(bulletElement);
+        document.getElementById('gameboard').removeChild(bulletElement);
       }
 
       if(bulletRect.right > w){
-          document.getElementById('gameboard').removeChild(bulletElement);
+        document.getElementById('gameboard').removeChild(bulletElement);
       }
     }
 
