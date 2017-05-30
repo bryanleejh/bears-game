@@ -5,13 +5,14 @@ var Game = function() {
     settings.walls = true;                 // The ball can not go outside the screen
     settings.automatic = false;            // The ball will move by itself
     settings.godmode = false;              // Debug mode
+    settings.gravity = 1;
 
     // World settings
-    var assets = [];                      // All game objects
-    var player1 = new Ball(settings);      // The player
-    var player2 = new Ball(settings);
-    assets[0] = player1;
-    assets[1] = player2;
+    this.assets = [];                      // All game objects
+    var player1 = new Player(settings);      // The player
+    this.assets[0] = player1;
+    
+
     var frame = 0;                        // Frames since the start of the game
 
     // Interactions
@@ -20,7 +21,7 @@ var Game = function() {
     interactions.down = false;            // Down arrow key pressed
     interactions.left = false;            // Left arrow key pressed
     interactions.right = false;           // Right arrow ket pressed
-    interactions.space = false;           // Speace key pressed
+    interactions.z = false;           // Speace key pressed
 
     // Setup event listeners
     function setupEvents() {
@@ -29,19 +30,22 @@ var Game = function() {
 
         switch(keyName) {
           case "ArrowRight":
-              interactions.right = false;
-              break;
+          interactions.right = false;
+          break;
           case "ArrowLeft":
-              interactions.left = false;
-              break;
+          interactions.left = false;
+          break;
           case "ArrowUp":
-              interactions.up = false;
-              break;
+          interactions.up = false;
+          break;
           case "ArrowDown":
-              interactions.down = false;
-              break;
+          interactions.down = false;
+          break;
+          case "z":
+          interactions.z = false;
+          break;
           default:
-              break;
+          break;
         }
       });
 
@@ -50,19 +54,22 @@ var Game = function() {
 
         switch(keyName) {
           case "ArrowRight":
-              interactions.right = true;
-              break;
+          interactions.right = true;
+          break;
           case "ArrowLeft":
-              interactions.left = true;
-              break;
+          interactions.left = true;
+          break;
           case "ArrowUp":
-              interactions.up = true;
-              break;
+          interactions.up = true;
+          break;
           case "ArrowDown":
-              interactions.down = true;
-              break;
+          interactions.down = true;
+          break;
+          case "z":
+          interactions.z = true;
+          break;
           default:
-              break;
+          break;
         }
       });
     }
@@ -72,28 +79,33 @@ var Game = function() {
       setupEvents();
     }
 
+    function spawnBullet() {
+      this.assets.push(new Bullet());
+    }
+
     // The render function. It will be called 60/sec
-    function render(){
-      for(var i=0; i < assets.length; i++){
-        assets[i].render(interactions);
+    this.render = function (){
+      for(var i=0; i < this.assets.length; i++){
+        this.assets[i].render(interactions);
       }
     }
 
+    var self = this;
     window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       ||
-              window.webkitRequestAnimationFrame ||
-              window.mozRequestAnimationFrame    ||
-              function(callback){
-                window.setTimeout(callback, 1000 / 60);
-              };
-            })();
+      return window.requestAnimationFrame       ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame    ||
+      function(callback){
+        window.setTimeout(callback, 1000 / 60);
+      };
+    })();
 
-            (function animloop(){
-              requestAnimFrame(animloop);
-              render();
-            })();
+    (function animloop(){
+      requestAnimFrame(animloop);
+      self.render();
+    })();
 
-            init();
-}
+    init();
+  }
 
-var g = new Game();
+  var g = new Game();
