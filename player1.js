@@ -1,10 +1,12 @@
-var Player = function(settings) {
+var Player1 = function(settings, playerX, playerY) {
     // Settings
     var cannonElement = null;
     var playerElement = null;
     var cannonAngle = 0;
     var cannonPower = 0;
     var adjustedAngle = 0;
+    var bulletOriginFromBot = 0;
+    var bulletOriginFromLeft = 0;
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -61,9 +63,11 @@ var Player = function(settings) {
         playerElement.innerHTML = 'angle: ' + adjustedAngle;
       }
 
-      
-      if(interactions.z){
+      //on fire keyup, fire and set interactions false, 
+      //to prevent infinite firing
+      if(interactions.z == true){
         fire();
+        interactions.z = false;
       }
 
       if(settings.walls){
@@ -74,30 +78,31 @@ var Player = function(settings) {
     function create() {
       // Create the object asset
       cannonElement = document.getElementById('cannon1');
-      cannonElement.style.bottom = '25px';
-      cannonElement.style.left = '115px';
+      cannonElement.style.bottom = playerY + 25 + 'px'; //settings.playerXpos + 25 + px //25px
+      cannonElement.style.left = playerX + 15 + 'px'; //settings.playerYpos + 15 + px //115px
       cannonElement.style.height = '50px';
       cannonElement.style.width = '20px';
       cannonElement.style.transform = 'rotate(0deg)';
       cannonAngle = 0;
       adjustedAngle = 90 - cannonAngle;
       playerElement = document.getElementById('player1');
-      playerElement.style.bottom = '0px';
-      playerElement.style.left = '100px';
+      playerElement.style.bottom = playerY + 'px'; //settings.playerXpos + 'px' //0px
+      playerElement.style.left = playerX + 'px'; //settings.playerYpos + 'px' //100px
       playerElement.style.height = '50px';
       playerElement.style.width = '50px';
+      bulletOriginFromBot = playerY + 50; //settings.playerYpos + 50
+      bulletOriginFromLeft = playerX + 20; //settings.playerXpos + 20
     }
 
     function fire() {
-      var bullet1 = new Bullet(settings,120,
-        50,cannonPower,adjustedAngle);
+      var bullet1 = new Bullet1(settings,bulletOriginFromLeft,
+        bulletOriginFromBot,cannonPower,adjustedAngle);
       g.assets.push(bullet1);
+      settings.turn++;
     }
 
     function init(){
       create();
-      
-
     }
 
     this.render = function(interactions){

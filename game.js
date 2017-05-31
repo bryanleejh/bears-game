@@ -8,18 +8,31 @@ var Game = function() {
     settings.gravity = 10;
     settings.frame = 0;
     settings.gameboard = document.getElementById("gameboard");
+    settings.turn = 0;
+    // settings.playerXpos = 0;
+    // settings.playerYpos = 0;
 
     // World settings
     this.assets = [];                      // All game objects
-    var player1 = new Player(settings);      // The player
-    var player2 = new Player(settings);
+
+    // settings.playerXpos = 100;
+    // settings.playerYpos = 0;
+    var player1 = new Player1(settings, 100, 0);      // The player
     this.assets[0] = player1;
+
+    // settings.playerXpos = 300;
+    // settings.playerYpos = 0;
+    var player2 = new Player2(settings, 900, 0);
     this.assets[1] = player2;
 
     var frame = 0;                        // Frames since the start of the game
     var time = 0;
     var clockElement = null;
     clockElement = document.getElementById("clock");
+    var turnElement = null;
+    turnElement = document.getElementById("turn");
+
+    
 
 
     // Interactions
@@ -28,7 +41,7 @@ var Game = function() {
     interactions.down = false;            // Down arrow key pressed
     interactions.left = false;            // Left arrow key pressed
     interactions.right = false;           // Right arrow ket pressed
-    interactions.z = false;           // Speace key pressed
+    interactions.z = false;           // Space key pressed
 
     // Setup event listeners
     function setupEvents() {
@@ -49,7 +62,8 @@ var Game = function() {
           interactions.down = false;
           break;
           case "z":
-          interactions.z = false;
+          interactions.z = true;
+          //while bullet is flying
           break;
           default:
           break;
@@ -72,9 +86,9 @@ var Game = function() {
           case "ArrowDown":
           interactions.down = true;
           break;
-          case "z":
-          interactions.z = true;
-          break;
+          // case "z":
+          // interactions.z = true;
+          // break;
           default:
           break;
         }
@@ -84,16 +98,27 @@ var Game = function() {
     // Startup the game
     function init(){
       setupEvents();
-
     }
 
-    // function spawnBullet() {
-    //   this.assets.push(new Bullet());
-    // }
+    // turn checker function
+    function turnChecker() {
+      //if turn is even, display player1turn
+      if (settings.turn%2==1) {
+        turnElement.innerHTML = "player2turn";
+      } else if (settings.turn%2==0) {
+        //turn is odd, display player2turn
+        turnElement.innerHTML = "player1turn";
+      }
+    }
 
     // The render function. It will be called 60/sec
     this.render = function (){
-      for(var i=0; i < this.assets.length; i++){
+      if (settings.turn%2==1) {
+        this.assets[1].render(interactions);
+      } if (settings.turn%2==0) {
+        this.assets[0].render(interactions);
+      }
+      for(var i=2; i < this.assets.length; i++){
         this.assets[i].render(interactions);
       }
 
@@ -101,6 +126,7 @@ var Game = function() {
       time = Math.floor(frame/60);
       clockElement.innerHTML = frame;
       settings.frame = frame;
+      turnChecker();
     }
 
     var self = this;
@@ -116,6 +142,7 @@ var Game = function() {
     (function animloop(){
       requestAnimFrame(animloop);
       self.render();
+      console.log(settings.turn);
     })();
 
     init();

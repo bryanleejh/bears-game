@@ -1,4 +1,4 @@
-var Bullet = function(settings, startX, startY, power, angle) {
+var Bullet2 = function(settings, startX, startY, power, angle) {
     // Settings
     var bulletElement = null;
     var Vx = 0;
@@ -15,18 +15,22 @@ var Bullet = function(settings, startX, startY, power, angle) {
 
       if(bulletRect.bottom > h){
         document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet2);
       }
 
       if(bulletRect.top < 0){
         document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet2);
       }
 
       if(bulletRect.left < 0){
         document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet2);
       }
 
       if(bulletRect.right > w){
         document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet2);
       }
     }
 
@@ -56,12 +60,10 @@ var Bullet = function(settings, startX, startY, power, angle) {
     function init(){
       // create();
       bulletElement = document.createElement('div');
-      bulletElement.className = 'bulletElem';
+      bulletElement.id = 'bulletElem2';
       //starting position of bullet
       bulletElement.style.bottom = y + 'px';
-      console.log(bulletElement.style.bottom);
       bulletElement.style.left = x + 'px';
-      console.log(bulletElement.style.left);
       bulletElement.style.borderRadius = '50%';
       radians = toRadians(angle);
       Vx = power * Math.cos(radians); //how much its going up
@@ -73,8 +75,8 @@ var Bullet = function(settings, startX, startY, power, angle) {
       document.getElementById('gameboard').appendChild(bulletElement);
     }
 
-    this.render = function(interactions){
-      move(interactions);
+    this.render = function(){
+      move();
     }
 
     init();
