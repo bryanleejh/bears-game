@@ -17,7 +17,7 @@ var Game = function() {
     settings.player1pos.x = 100;
     settings.player1pos.y = 0;
     settings.player2pos = {};
-    settings.player2pos.x = 900;
+    settings.player2pos.x = 1100;
     settings.player2pos.y = 0;
 
     // World settings
@@ -126,6 +126,16 @@ var Game = function() {
       settings.frame = frame;
     }
 
+    function checkWin() {
+      if (settings.player1hp == 0) {
+        //player 2 wins!
+        turnElement.innerHTML = "Player 2 Wins!";
+      } else if (settings.player2hp == 0) {
+        //player 1 wins!
+        turnElement.innerHTML = "Player 1 Wins!";
+      }
+    }
+
     // The render function. It will be called 60/sec
     this.render = function (){
       if (settings.turn%2==1) {
@@ -140,6 +150,7 @@ var Game = function() {
       handleTime();
       turnChecker();
       updateHP();
+      checkWin();
     }
 
     var self = this;
@@ -152,6 +163,7 @@ var Game = function() {
       };
     })();
 
+    //loop
     (function animloop(){
       requestAnimFrame(animloop);
       self.render();

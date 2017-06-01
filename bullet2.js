@@ -34,6 +34,20 @@ var Bullet2 = function(settings, startX, startY, power, angle) {
       }
     }
 
+    function collision() {
+      var rect1 = {x: settings.player1pos.x, y: settings.player1pos.y, width: 50, height: 50} //player
+      var rect2 = {x: x, y: y, width: 10, height: 10} //projectile
+
+      if (rect1.x < rect2.x + rect2.width &&
+       rect1.x + rect1.width > rect2.x &&
+       rect1.y < rect2.y + rect2.height &&
+       rect1.height + rect1.y > rect2.y) {
+        document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet2);
+        settings.player1hp = settings.player1hp - 20;
+      }
+    }
+
     function move(interactions){
       //while no collision or no wall, keep flying
       var flightTime = settings.frame - startTime;
@@ -47,10 +61,8 @@ var Bullet2 = function(settings, startX, startY, power, angle) {
       if(settings.walls){
         wall();
       }
-    }
 
-    function create() {
-        // Create the object asset
+      collision();
     }
 
     function toRadians (angle) {
@@ -58,7 +70,6 @@ var Bullet2 = function(settings, startX, startY, power, angle) {
     }
 
     function init(){
-      // create();
       bulletElement = document.createElement('div');
       bulletElement.id = 'bulletElem2';
       //starting position of bullet
@@ -80,4 +91,4 @@ var Bullet2 = function(settings, startX, startY, power, angle) {
     }
 
     init();
-}
+  }

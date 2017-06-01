@@ -35,28 +35,16 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
     }
 
     function collision() {
-      //getBoundingClientRect determines boundaries
-      var bulletRect = bulletElement.getBoundingClientRect();
-      var player2Rect = player2Element.getBoundingClientRect();
+      var rect1 = {x: settings.player2pos.x, y: settings.player2pos.y, width: 50, height: 50} //player
+      var rect2 = {x: x, y: y, width: 10, height: 10} //projectile
 
-      if(bulletRect.bottom > h){
+      if (rect1.x < rect2.x + rect2.width &&
+       rect1.x + rect1.width > rect2.x &&
+       rect1.y < rect2.y + rect2.height &&
+       rect1.height + rect1.y > rect2.y) {
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
-      }
-
-      if(bulletRect.top < 0){
-        document.getElementById('gameboard').removeChild(bulletElement);
-        g.assets.pop(Bullet1);
-      }
-
-      if(bulletRect.left < 0){
-        document.getElementById('gameboard').removeChild(bulletElement);
-        g.assets.pop(Bullet1);
-      }
-
-      if(bulletRect.right > w){
-        document.getElementById('gameboard').removeChild(bulletElement);
-        g.assets.pop(Bullet1);
+        settings.player2hp = settings.player2hp - 20;
       }
     }
 
@@ -74,12 +62,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
         wall();
       }
 
-      //collision();
-
-    }
-
-    function create() {
-        // Create the object asset
+      collision();
     }
 
     function toRadians (angle) {
@@ -87,8 +70,6 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
     }
 
     function init(){
-      // create();
-      player2Element = document.getElementById('player2');
       bulletElement = document.createElement('div');
       bulletElement.id = 'bulletElem1';
       //starting position of bullet
@@ -110,4 +91,4 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
     }
 
     init();
-}
+  }
