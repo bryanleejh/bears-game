@@ -7,8 +7,8 @@ var Player1 = function(settings, playerX, playerY) {
     var cannonAngle = 0;
     var cannonPower = 0;
     var adjustedAngle = 0;
-    var bulletOriginFromBot = 0;
-    var bulletOriginFromLeft = 0;
+    var bulletOriginFromBot = settings.player1pos.y + 50; //settings.playerYpos + 50
+    var bulletOriginFromLeft = settings.player1pos.x + 20; //settings.playerXpos + 20
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -76,6 +76,20 @@ var Player1 = function(settings, playerX, playerY) {
         interactions.space = false;
       }
 
+      //move player left
+      if(interactions.z) {
+        settings.player1pos.x = settings.player1pos.x - 1;
+        cannonElement.style.left = settings.player1pos.x + 15 + 'px';
+        playerElement.style.left = settings.player1pos.x + 'px';
+      }
+
+      //move player right
+      if(interactions.x) {
+        settings.player1pos.x = settings.player1pos.x + 1;
+        cannonElement.style.left = settings.player1pos.x + 15 + 'px';
+        playerElement.style.left = settings.player1pos.x + 'px';
+      }
+
       if(settings.walls){
         wall();
       }
@@ -86,26 +100,24 @@ var Player1 = function(settings, playerX, playerY) {
       powerElement = document.getElementById('player1power');
       angleElement = document.getElementById('player1angle');
       cannonElement = document.getElementById('cannon1');
-      cannonElement.style.bottom = playerY + 25 + 'px'; //settings.playerXpos + 25 + px //25px
-      cannonElement.style.left = playerX + 15 + 'px'; //settings.playerYpos + 15 + px //115px
+      cannonElement.style.bottom = settings.player1pos.y + 25 + 'px'; //settings.playerXpos + 25 + px //25px
+      cannonElement.style.left = settings.player1pos.x + 15 + 'px'; //settings.playerYpos + 15 + px //115px
       cannonElement.style.height = '50px';
       cannonElement.style.width = '20px';
       cannonElement.style.transform = 'rotate(0deg)';
       cannonAngle = 0;
       adjustedAngle = 90 - cannonAngle;
       playerElement = document.getElementById('player1');
-      playerElement.style.bottom = playerY + 'px'; //settings.playerXpos + 'px' //0px
-      playerElement.style.left = playerX + 'px'; //settings.playerYpos + 'px' //100px
+      playerElement.style.bottom = settings.player1pos.y + 'px'; //settings.playerXpos + 'px' //0px
+      playerElement.style.left = settings.player1pos.x + 'px'; //settings.playerYpos + 'px' //100px
       playerElement.style.height = '50px';
       playerElement.style.width = '50px';
-      bulletOriginFromBot = playerY + 50; //settings.playerYpos + 50
-      bulletOriginFromLeft = playerX + 20; //settings.playerXpos + 20
     }
 
     function fire() {
       settings.bulletActive = true;
-      var bullet1 = new Bullet1(settings,bulletOriginFromLeft,
-        bulletOriginFromBot,cannonPower,adjustedAngle);
+      var bullet1 = new Bullet1(settings,(settings.player1pos.x + 20),
+        (settings.player1pos.y + 50),cannonPower,adjustedAngle);
       g.assets.push(bullet1);
       settings.turn++;
     }
