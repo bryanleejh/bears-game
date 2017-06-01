@@ -2,6 +2,10 @@ html,body {
   background: url(bckgrnd.jpg) no-repeat center center fixed;
 }
 
+#reset-btn {
+  display: none;
+}
+
 .size {
   font-size: 2em;
 }

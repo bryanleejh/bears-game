@@ -164,10 +164,12 @@ var Game = function() {
         //player 2 wins!
         turnElement.innerHTML = "Player 2 Wins!";
         settings.win = true;
+        document.getElementById('reset-btn').style.display = 'block';
       } else if (settings.player2hp == 0) {
         //player 1 wins!
         turnElement.innerHTML = "Player 1 Wins!";
         settings.win = true;
+        document.getElementById('reset-btn').style.display = 'block';
       }
     }
 
