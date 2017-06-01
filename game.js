@@ -77,7 +77,13 @@ var Game = function() {
           //interactions.space is disabled elsewhere
           interactions.space = true;
           break;
-          
+          case "z":
+          interactions.z = false;
+          break;
+          case "x":
+          interactions.x = false;
+          break;
+
           default:
           break;
         }
@@ -110,6 +116,13 @@ var Game = function() {
           // case "z":
           // interactions.z = true;
           // break;
+           case "z":
+          interactions.z = true;
+          break;
+          case "x":
+          interactions.x = true;
+          break;
+
           default:
           break;
         }

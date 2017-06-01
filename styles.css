@@ -1,9 +1,18 @@
+html,body {
+  background: url(bckgrnd.jpg) no-repeat center center fixed;
+}
+
 .size {
-  font-size: 3em;
+  font-size: 2em;
 }
 
 .inline {
   display: inline;
+}
+
+.HUD {
+  background-color: white;
+  opacity: 0.7;
 }
 
 #cannon1 {
@@ -35,8 +44,6 @@
 }
 
 #gameboard {
-  height: 500px;
-  width: 1000px;
   border-color: black;
   border-width: 3px;
 }
