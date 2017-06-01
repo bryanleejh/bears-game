@@ -73,9 +73,11 @@ var Game = function() {
           case "ArrowDown":
           interactions.down = false;
           break;
-          case "z":
-          interactions.z = true;
+          case " ":
+          //interactions.space is disabled elsewhere
+          interactions.space = true;
           break;
+          
           default:
           break;
         }

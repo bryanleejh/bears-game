@@ -71,9 +71,9 @@ var Player2 = function(settings, playerX, playerY) {
 
       //on fire keyup, fire and set interactions false, 
       //to prevent infinite firing
-      if(interactions.z == true && (settings.bulletActive == false)){
+      if(interactions.space == true && (settings.bulletActive == false)){
         fire();
-        interactions.z = false;
+        interactions.space = false;
       }
 
       if(settings.walls){
