@@ -16,21 +16,25 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
       if(bulletRect.bottom > h){
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
+        settings.bulletActive = false;
       }
 
       if(bulletRect.top < 0){
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
+        settings.bulletActive = false;
       }
 
       if(bulletRect.left < 0){
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
+        settings.bulletActive = false;
       }
 
       if(bulletRect.right > w){
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
+        settings.bulletActive = false;
       }
     }
 
@@ -44,6 +48,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
        rect1.height + rect1.y > rect2.y) {
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
+        settings.bulletActive = false;
         settings.player2hp = settings.player2hp - 20;
       }
     }

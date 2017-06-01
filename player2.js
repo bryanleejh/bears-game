@@ -2,6 +2,8 @@ var Player2 = function(settings, playerX, playerY) {
     // Settings
     var cannonElement = null;
     var playerElement = null;
+    var powerElement = null;
+    var angleElement = null;
     var cannonAngle = 0;
     var cannonPower = 0;
     var adjustedAngle = 0;
@@ -38,6 +40,7 @@ var Player2 = function(settings, playerX, playerY) {
         if (cannonPower < 199) {
         cannonPower = cannonPower + 1;
         cannonElement.innerHTML = cannonPower;
+        powerElement.innerHTML = cannonPower;
         }
       }
 
@@ -45,6 +48,7 @@ var Player2 = function(settings, playerX, playerY) {
         if (cannonPower > 0) {
         cannonPower = cannonPower - 1;
         cannonElement.innerHTML = cannonPower;
+        powerElement.innerHTML = cannonPower;
         }
       }
 
@@ -54,6 +58,7 @@ var Player2 = function(settings, playerX, playerY) {
         cannonAngle = (cannonAngle + 1)%360;
         adjustedAngle = 90 - cannonAngle;
         playerElement.innerHTML = 'angle: ' + adjustedAngle;
+        angleElement.innerHTML = adjustedAngle;
       }
 
       if(interactions.right){
@@ -61,11 +66,12 @@ var Player2 = function(settings, playerX, playerY) {
         cannonAngle = (cannonAngle - 1)%360;
         adjustedAngle = 90 - cannonAngle;
         playerElement.innerHTML = 'angle: ' + adjustedAngle;
+        angleElement.innerHTML = adjustedAngle;
       }
 
       //on fire keyup, fire and set interactions false, 
       //to prevent infinite firing
-      if(interactions.z == true){
+      if(interactions.z == true && (settings.bulletActive == false)){
         fire();
         interactions.z = false;
       }
@@ -77,6 +83,8 @@ var Player2 = function(settings, playerX, playerY) {
 
     function create() {
       // Create the object asset
+      powerElement = document.getElementById('player2power');
+      angleElement = document.getElementById('player2angle');
       cannonElement = document.getElementById('cannon2');
       cannonElement.style.bottom = playerY + 25 + 'px'; //settings.playerXpos + 25 + px //25px
       cannonElement.style.left = playerX + 15 + 'px'; //settings.playerYpos + 15 + px //115px
@@ -95,6 +103,7 @@ var Player2 = function(settings, playerX, playerY) {
     }
 
     function fire() {
+      settings.bulletActive = true;
       var bullet2 = new Bullet2(settings,bulletOriginFromLeft,
         bulletOriginFromBot,cannonPower,adjustedAngle);
       g.assets.push(bullet2);

@@ -11,6 +11,7 @@ var Game = function() {
     settings.turn = 0;
     settings.player1hp = 100;
     settings.player2hp = 100;
+    settings.win = false;
     
     //for player movement and also hitbox calculation
     settings.player1pos = {};
@@ -19,6 +20,8 @@ var Game = function() {
     settings.player2pos = {};
     settings.player2pos.x = 1100;
     settings.player2pos.y = 0;
+
+    settings.bulletActive = false;
 
     // World settings
     this.assets = [];                      // All game objects
@@ -49,6 +52,14 @@ var Game = function() {
       document.addEventListener('keyup', function(event){
         var keyName = event.key;
 
+        if(settings.bulletActive) {
+          return;
+        }
+
+        if(settings.win){
+          return;
+        }
+
         switch(keyName) {
           case "ArrowRight":
           interactions.right = false;
@@ -64,7 +75,6 @@ var Game = function() {
           break;
           case "z":
           interactions.z = true;
-          //while bullet is flying
           break;
           default:
           break;
@@ -73,6 +83,14 @@ var Game = function() {
 
       document.addEventListener('keydown', function(event){
         var keyName = event.key;
+
+        if(settings.bulletActive) {
+          return;
+        }
+
+        if(settings.win){
+          return;
+        }
 
         switch(keyName) {
           case "ArrowRight":
@@ -130,9 +148,11 @@ var Game = function() {
       if (settings.player1hp == 0) {
         //player 2 wins!
         turnElement.innerHTML = "Player 2 Wins!";
+        settings.win = true;
       } else if (settings.player2hp == 0) {
         //player 1 wins!
         turnElement.innerHTML = "Player 1 Wins!";
+        settings.win = true;
       }
     }
 

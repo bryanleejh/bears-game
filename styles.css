@@ -2,6 +2,10 @@
   font-size: 3em;
 }
 
+.inline {
+  display: inline;
+}
+
 #cannon1 {
   height: 0px;
   width: 0px;
