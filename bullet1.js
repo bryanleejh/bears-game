@@ -34,6 +34,32 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
       }
     }
 
+    function collision() {
+      //getBoundingClientRect determines boundaries
+      var bulletRect = bulletElement.getBoundingClientRect();
+      var player2Rect = player2Element.getBoundingClientRect();
+
+      if(bulletRect.bottom > h){
+        document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet1);
+      }
+
+      if(bulletRect.top < 0){
+        document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet1);
+      }
+
+      if(bulletRect.left < 0){
+        document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet1);
+      }
+
+      if(bulletRect.right > w){
+        document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet1);
+      }
+    }
+
     function move(interactions){
       //while no collision or no wall, keep flying
       var flightTime = settings.frame - startTime;
@@ -47,6 +73,9 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
       if(settings.walls){
         wall();
       }
+
+      //collision();
+
     }
 
     function create() {
@@ -59,6 +88,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
 
     function init(){
       // create();
+      player2Element = document.getElementById('player2');
       bulletElement = document.createElement('div');
       bulletElement.id = 'bulletElem1';
       //starting position of bullet

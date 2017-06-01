@@ -9,31 +9,32 @@ var Game = function() {
     settings.frame = 0;
     settings.gameboard = document.getElementById("gameboard");
     settings.turn = 0;
-    // settings.playerXpos = 0;
-    // settings.playerYpos = 0;
+    settings.player1hp = 100;
+    settings.player2hp = 100;
+    
+    //for player movement and also hitbox calculation
+    settings.player1pos = {};
+    settings.player1pos.x = 100;
+    settings.player1pos.y = 0;
+    settings.player2pos = {};
+    settings.player2pos.x = 900;
+    settings.player2pos.y = 0;
 
     // World settings
     this.assets = [];                      // All game objects
 
-    // settings.playerXpos = 100;
-    // settings.playerYpos = 0;
-    var player1 = new Player1(settings, 100, 0);      // The player
+    var player1 = new Player1(settings, settings.player1pos.x, settings.player1pos.y);      // The player
     this.assets[0] = player1;
 
-    // settings.playerXpos = 300;
-    // settings.playerYpos = 0;
-    var player2 = new Player2(settings, 900, 0);
+    var player2 = new Player2(settings, settings.player2pos.x, settings.player2pos.y);
     this.assets[1] = player2;
 
     var frame = 0;                        // Frames since the start of the game
     var time = 0;
-    var clockElement = null;
-    clockElement = document.getElementById("clock");
-    var turnElement = null;
-    turnElement = document.getElementById("turn");
-
-    
-
+    var clockElement = document.getElementById("clock");
+    var turnElement = document.getElementById("turn");
+    var p1HpElement = document.getElementById("player1hpVal");
+    var p2HpElement = document.getElementById("player2hpVal");
 
     // Interactions
     var interactions = {};
@@ -104,11 +105,25 @@ var Game = function() {
     function turnChecker() {
       //if turn is even, display player1turn
       if (settings.turn%2==1) {
-        turnElement.innerHTML = "player2turn";
+        turnElement.innerHTML = "Player 2's Turn!";
       } else if (settings.turn%2==0) {
         //turn is odd, display player2turn
-        turnElement.innerHTML = "player1turn";
+        turnElement.innerHTML = "Player 1's Turn!";
       }
+    }
+
+    //this function is called in render, updates both player HP
+    function updateHP() {
+      p1HpElement.innerHTML = settings.player1hp;
+      p2HpElement.innerHTML = settings.player2hp;
+    }
+
+    //called in render, to update the time and frames
+    function handleTime() {
+      frame++;
+      time = Math.floor(frame/60);
+      clockElement.innerHTML = frame;
+      settings.frame = frame;
     }
 
     // The render function. It will be called 60/sec
@@ -122,11 +137,9 @@ var Game = function() {
         this.assets[i].render(interactions);
       }
 
-      frame++;
-      time = Math.floor(frame/60);
-      clockElement.innerHTML = frame;
-      settings.frame = frame;
+      handleTime();
       turnChecker();
+      updateHP();
     }
 
     var self = this;
