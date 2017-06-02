@@ -1,5 +1,5 @@
 html,body {
-  background: url(bckgrnd.jpg) no-repeat center center fixed;
+  background: url(../assets/bckgrnd.jpg) no-repeat center center fixed;
 }
 
 #reset-btn {
