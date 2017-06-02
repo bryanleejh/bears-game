@@ -6,6 +6,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
     var y = startY;
     var x = startX;
     var radians = 0;
+    var audio = new Audio('assets/explode.mp3');
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -51,6 +52,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
         g.assets.pop(Bullet1);
         settings.bulletActive = false;
         settings.player2hp = settings.player2hp - 50;
+        audio.play();
       }
     }
 
