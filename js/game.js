@@ -12,6 +12,7 @@ var Game = function() {
     settings.player1hp = 100;
     settings.player2hp = 100;
     settings.win = false;
+    settings.audio = true; //playing
     
     //for player movement and also hitbox calculation
     settings.player1pos = {};
@@ -20,7 +21,7 @@ var Game = function() {
     settings.player2pos = {};
     settings.player2pos.x = 1100;
     settings.player2pos.y = 0;
-
+    
     settings.bulletActive = false;
 
     // World settings
@@ -38,6 +39,7 @@ var Game = function() {
     var turnElement = document.getElementById("turn");
     var p1HpElement = document.getElementById("player1hpVal");
     var p2HpElement = document.getElementById("player2hpVal");
+    var bgmAudio = new Audio('assets/mario.mp3');
 
     // Interactions
     var interactions = {};
@@ -46,6 +48,7 @@ var Game = function() {
     interactions.left = false;            // Left arrow key pressed
     interactions.right = false;           // Right arrow ket pressed
     interactions.z = false;           // Space key pressed
+    interactions.reset = false;
 
     // Setup event listeners
     function setupEvents() {
@@ -116,7 +119,7 @@ var Game = function() {
           // case "z":
           // interactions.z = true;
           // break;
-           case "z":
+          case "z":
           interactions.z = true;
           break;
           case "x":
@@ -127,8 +130,17 @@ var Game = function() {
           break;
         }
       });
-    }
 
+      document.getElementById("audio-btn").addEventListener('click', function(){
+        settings.audio = !settings.audio;
+        if (settings.audio) {
+          bgmAudio.play();
+        } else {
+          bgmAudio.pause();
+        }
+      });
+    
+    }
     // Startup the game
     function init(){
       setupEvents();
@@ -171,6 +183,7 @@ var Game = function() {
         settings.win = true;
         document.getElementById('reset-btn').style.display = 'block';
       }
+
     }
 
     // The render function. It will be called 60/sec
@@ -205,6 +218,9 @@ var Game = function() {
       requestAnimFrame(animloop);
       self.render();
       console.log(settings.turn);
+      if (settings.audio) {
+        bgmAudio.play();
+      }
     })();
 
     init();

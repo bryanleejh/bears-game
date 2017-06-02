@@ -38,6 +38,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
       }
     }
 
+    // collision with enemy
     function collision() {
       var rect1 = {x: settings.player2pos.x, y: settings.player2pos.y, width: 50, height: 50} //player
       var rect2 = {x: x, y: y, width: 10, height: 10} //projectile
@@ -49,7 +50,7 @@ var Bullet1 = function(settings, startX, startY, power, angle) {
         document.getElementById('gameboard').removeChild(bulletElement);
         g.assets.pop(Bullet1);
         settings.bulletActive = false;
-        settings.player2hp = settings.player2hp - 20;
+        settings.player2hp = settings.player2hp - 50;
       }
     }
 

@@ -9,6 +9,7 @@ var Player1 = function(settings, playerX, playerY) {
     var adjustedAngle = 0;
     var bulletOriginFromBot = settings.player1pos.y + 50; //settings.playerYpos + 50
     var bulletOriginFromLeft = settings.player1pos.x + 20; //settings.playerXpos + 20
+    var audio = new Audio('assets/cannon.mp3');
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -120,6 +121,7 @@ var Player1 = function(settings, playerX, playerY) {
         (settings.player1pos.y + 50),cannonPower,adjustedAngle);
       g.assets.push(bullet1);
       settings.turn++;
+      audio.play();
     }
 
     function init(){
