@@ -35,18 +35,18 @@ var Player = function(settings, playerX, playerY, player) {
       }
     }
 
-    this.collision = function(obj) {
-      switch (obj.type) {
-        case 'bullet':
-          this.playerHP -= 50;
-          document.getElementById('gameboard').removeChild(bulletElement);
-          g.assets.pop(Bullet);
-          settings.bulletActive = false;
-          break;
-        default:
-        break;
-      }
-    }
+    // this.collision = function(obj) {
+    //   switch (obj.type) {
+    //     case 'bullet':
+    //       this.playerHP -= 50;
+    //       document.getElementById('gameboard').removeChild(bulletElement);
+    //       g.assets.pop(Bullet);
+    //       settings.bulletActive = false;
+    //       break;
+    //     default:
+    //     break;
+    //   }
+    // }
 
     // Edit player settings around manually
     function move(interactions){

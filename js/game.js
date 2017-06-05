@@ -181,7 +181,7 @@ var Game = function() {
     }
 
     function collision(obj1, obj2) {
-      var rect1 = {x: obj1.x y: obj1.y, width: obj1.width, height: obj1.height} //player
+      var rect1 = {x: obj1.x, y: obj1.y, width: obj1.width, height: obj1.height} //player
       var rect2 = {x: obj2.x, y: obj2.y, width: obj2.width, height: obj2.height} //projectile
 
       if (rect1.x < rect2.x + rect2.width &&
@@ -195,7 +195,6 @@ var Game = function() {
         audio.play();
       }
     }
-
 
     // The render function. It will be called 60/sec
     this.render = function (){
