@@ -9,8 +9,6 @@ var Game = function() {
     settings.frame = 0;
     settings.gameboard = document.getElementById("gameboard");
     settings.turn = 0;
-    settings.player1hp = 100;
-    settings.player2hp = 100;
     settings.win = false;
     settings.audio = true; //playing
     
@@ -27,11 +25,11 @@ var Game = function() {
     // World settings
     this.assets = [];                      // All game objects
 
-    var player1 = new Player1(settings, settings.player1pos.x, settings.player1pos.y);      // The player
-    this.assets[0] = player1;
+    var player1 = new Player(settings, settings.player1pos.x, settings.player1pos.y, "1");      // The player
+    this.assets.push(player1);
 
-    var player2 = new Player2(settings, settings.player2pos.x, settings.player2pos.y);
-    this.assets[1] = player2;
+    var player2 = new Player(settings, settings.player2pos.x, settings.player2pos.y, "2");
+    this.assets.push(player2);
 
     var frame = 0;                        // Frames since the start of the game
     var time = 0;
@@ -99,10 +97,6 @@ var Game = function() {
           return;
         }
 
-        if(settings.win){
-          return;
-        }
-
         switch(keyName) {
           case "ArrowRight":
           interactions.right = true;
@@ -159,8 +153,8 @@ var Game = function() {
 
     //this function is called in render, updates both player HP
     function updateHP() {
-      p1HpElement.innerHTML = settings.player1hp;
-      p2HpElement.innerHTML = settings.player2hp;
+      p1HpElement.innerHTML = player1.playerHP;
+      p2HpElement.innerHTML = player2.playerHP;
     }
 
     //called in render, to update the time and frames
@@ -172,12 +166,12 @@ var Game = function() {
     }
 
     function checkWin() {
-      if (settings.player1hp == 0) {
+      if (player1.playerHP == 0) {
         //player 2 wins!
         turnElement.innerHTML = "Player 2 Wins!";
         settings.win = true;
         document.getElementById('reset-btn').style.display = 'block';
-      } else if (settings.player2hp == 0) {
+      } else if (player2.playerHP == 0) {
         //player 1 wins!
         turnElement.innerHTML = "Player 1 Wins!";
         settings.win = true;
@@ -185,6 +179,23 @@ var Game = function() {
       }
 
     }
+
+    function collision(obj1, obj2) {
+      var rect1 = {x: obj1.x y: obj1.y, width: obj1.width, height: obj1.height} //player
+      var rect2 = {x: obj2.x, y: obj2.y, width: obj2.width, height: obj2.height} //projectile
+
+      if (rect1.x < rect2.x + rect2.width &&
+       rect1.x + rect1.width > rect2.x &&
+       rect1.y < rect2.y + rect2.height &&
+       rect1.height + rect1.y > rect2.y) {
+        document.getElementById('gameboard').removeChild(bulletElement);
+        g.assets.pop(Bullet);
+        settings.bulletActive = false;
+        settings.player2hp = settings.player2hp - 50;
+        audio.play();
+      }
+    }
+
 
     // The render function. It will be called 60/sec
     this.render = function (){
@@ -201,6 +212,9 @@ var Game = function() {
       turnChecker();
       updateHP();
       checkWin();
+      if (settings.audio) {
+        bgmAudio.play();
+      }
     }
 
     var self = this;
@@ -218,9 +232,7 @@ var Game = function() {
       requestAnimFrame(animloop);
       self.render();
       console.log(settings.turn);
-      if (settings.audio) {
-        bgmAudio.play();
-      }
+      
     })();
 
     init();
