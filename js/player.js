@@ -10,6 +10,7 @@ var Player = function(settings, playerX, playerY, player) {
     var bulletOriginFromBot = playerY + 50; //settings.playerYpos + 50
     var bulletOriginFromLeft = playerX + 20; //settings.playerXpos + 20
     var audio = new Audio('assets/cannon.mp3');
+    var explode = new Audio('assets/explode.mp3');
     this.playerHP = 100;
 
     function wall() {
@@ -35,18 +36,19 @@ var Player = function(settings, playerX, playerY, player) {
       }
     }
 
-    // this.collision = function(obj) {
-    //   switch (obj.type) {
-    //     case 'bullet':
-    //       this.playerHP -= 50;
-    //       document.getElementById('gameboard').removeChild(bulletElement);
-    //       g.assets.pop(Bullet);
-    //       settings.bulletActive = false;
-    //       break;
-    //     default:
-    //     break;
-    //   }
-    // }
+    this.collision = function(obj) {
+      switch (obj.type) {
+        case 'bullet':
+          this.playerHP -= 50;
+          document.getElementById('gameboard').removeChild(bulletElement);
+          g.assets.pop(Bullet);
+          settings.bulletActive = false;
+          explode.play();
+          break;
+        default:
+        break;
+      }
+    }
 
     // Edit player settings around manually
     function move(interactions){
@@ -117,6 +119,10 @@ var Player = function(settings, playerX, playerY, player) {
       g.assets.push(bullet1);
       settings.turn++;
       audio.play();
+    }
+
+    function create(){
+      
     }
 
     function init(){

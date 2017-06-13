@@ -146,7 +146,7 @@ var Game = function() {
       if (settings.turn%2==1) {
         turnElement.innerHTML = "Player 2's Turn!";
       } else if (settings.turn%2==0) {
-        //turn is odd, display player2turn
+        //turn is odd, display player2turn  
         turnElement.innerHTML = "Player 1's Turn!";
       }
     }
@@ -180,6 +180,7 @@ var Game = function() {
 
     }
 
+    //player collide with object
     function collision(obj1, obj2) {
       var rect1 = {x: obj1.x, y: obj1.y, width: obj1.width, height: obj1.height} //player
       var rect2 = {x: obj2.x, y: obj2.y, width: obj2.width, height: obj2.height} //projectile
@@ -188,11 +189,7 @@ var Game = function() {
        rect1.x + rect1.width > rect2.x &&
        rect1.y < rect2.y + rect2.height &&
        rect1.height + rect1.y > rect2.y) {
-        document.getElementById('gameboard').removeChild(bulletElement);
-        g.assets.pop(Bullet);
-        settings.bulletActive = false;
-        settings.player2hp = settings.player2hp - 50;
-        audio.play();
+        
       }
     }
 

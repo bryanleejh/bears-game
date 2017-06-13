@@ -6,7 +6,6 @@ var Bullet = function(settings, startX, startY, power, angle) {
     var y = startY;
     var x = startX;
     var radians = 0;
-    var audio = new Audio('assets/explode.mp3');
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -60,6 +59,10 @@ var Bullet = function(settings, startX, startY, power, angle) {
       return angle * (Math.PI / 180);
     }
 
+    function create(){
+      
+    }
+
     function init(){
       bulletElement = document.createElement('div');
       bulletElement.id = 'bulletElem';
@@ -74,7 +77,7 @@ var Bullet = function(settings, startX, startY, power, angle) {
       Vy = Math.floor(Vy);
       height = Vy;
       startTime = settings.frame;
-      document.getElementById('gameboard').appendChild(bulletElement);
+      document.getElementById('container').appendChild(bulletElement);
     }
 
     this.render = function(){
