@@ -52,7 +52,8 @@ var Bullet = function(settings, startX, startY, power, angle) {
         wall();
       }
 
-      collision();
+      //checks for collision
+      //collision();
     }
 
     function toRadians (angle) {
@@ -60,7 +61,7 @@ var Bullet = function(settings, startX, startY, power, angle) {
     }
 
     function create(){
-      
+
     }
 
     function init(){
@@ -77,7 +78,7 @@ var Bullet = function(settings, startX, startY, power, angle) {
       Vy = Math.floor(Vy);
       height = Vy;
       startTime = settings.frame;
-      document.getElementById('container').appendChild(bulletElement);
+      document.getElementById('gameboard').appendChild(bulletElement);
     }
 
     this.render = function(){

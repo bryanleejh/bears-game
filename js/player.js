@@ -86,7 +86,7 @@ var Player = function(settings, playerX, playerY, player) {
         angleElement.innerHTML = adjustedAngle;
       }
 
-      //on fire keyup, fire and set interactions false, 
+      //on fire keyup, fire and set interactions false,
       //to prevent infinite firing
       if(interactions.space == true && (settings.bulletActive == false)){
         fire();
@@ -114,15 +114,15 @@ var Player = function(settings, playerX, playerY, player) {
 
     function fire() {
       settings.bulletActive = true;
-      var bullet1 = new Bullet(settings,(playerX + 20),
+      var bullet = new Bullet(settings,(playerX + 20),
         (playerY + 50),cannonPower,adjustedAngle);
-      g.assets.push(bullet1);
+      g.assets.push(bullet);
       settings.turn++;
       audio.play();
     }
 
     function create(){
-      
+
     }
 
     function init(){

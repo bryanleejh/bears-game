@@ -7,7 +7,7 @@ var Game = function() {
     settings.godmode = false;              // Debug mode
     settings.gravity = 10;
     settings.frame = 0;
-    settings.gameboard = document.getElementById("gameboard");
+    //settings.gameboard = document.getElementById("gameboard");
     settings.turn = 0;
     settings.win = false;
     settings.audio = true; //playing
@@ -177,7 +177,6 @@ var Game = function() {
         settings.win = true;
         document.getElementById('reset-btn').style.display = 'block';
       }
-
     }
 
     //player collide with object
@@ -189,7 +188,6 @@ var Game = function() {
        rect1.x + rect1.width > rect2.x &&
        rect1.y < rect2.y + rect2.height &&
        rect1.height + rect1.y > rect2.y) {
-        
       }
     }
 
@@ -228,7 +226,6 @@ var Game = function() {
       requestAnimFrame(animloop);
       self.render();
       console.log(settings.turn);
-      
     })();
 
     init();
