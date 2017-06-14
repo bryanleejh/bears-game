@@ -143,9 +143,9 @@ var Game = function() {
     // turn checker function
     function turnChecker() {
       //if turn is even, display player1turn
-      if (settings.turn%2==1) {
+      if (settings.turn%2===1) {
         turnElement.innerHTML = "Player 2's Turn!";
-      } else if (settings.turn%2==0) {
+      } else if (settings.turn%2===0) {
         //turn is odd, display player2turn  
         turnElement.innerHTML = "Player 1's Turn!";
       }
@@ -166,12 +166,12 @@ var Game = function() {
     }
 
     function checkWin() {
-      if (player1.playerHP == 0) {
+      if (player1.playerHP === 0) {
         //player 2 wins!
         turnElement.innerHTML = "Player 2 Wins!";
         settings.win = true;
         document.getElementById('reset-btn').style.display = 'block';
-      } else if (player2.playerHP == 0) {
+      } else if (player2.playerHP === 0) {
         //player 1 wins!
         turnElement.innerHTML = "Player 1 Wins!";
         settings.win = true;
@@ -209,7 +209,7 @@ var Game = function() {
         this.assets[1].render(interactions);
       } 
       // if even turn, move player 1
-      if (settings.turn%2==0) {
+      if (settings.turn%2===0) {
         this.assets[0].render(interactions);
       }
       // render bullet and deal with collision
