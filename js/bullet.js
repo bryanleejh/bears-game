@@ -3,9 +3,16 @@ var Bullet = function(settings, startX, startY, power, angle) {
     var bulletElement = null;
     var Vx = 0;
     var Vy = 0;
-    var y = startY;
-    var x = startX;
     var radians = 0;
+    console.log(startX + "bullet created");
+    console.log(startY + "bullet created");
+    this.y = startY;
+    this.x = startX;
+    console.log(this.y);
+    console.log(this.x);
+    this.width = 10;
+    this.height = 10;
+    var self = this;
 
     function wall() {
       //getBoundingClientRect determines boundaries
@@ -42,11 +49,11 @@ var Bullet = function(settings, startX, startY, power, angle) {
       //while no collision or no wall, keep flying
       var flightTime = settings.frame - startTime;
       flightTime = flightTime/12;
-      x = startX + Vx * flightTime;
+      self.x = startX + Vx * flightTime;
       //s = ut - 1/2at^2
-      y = startY + Vy * flightTime - (0.5)*(settings.gravity)*(flightTime)*(flightTime);
-      bulletElement.style.left = x + 'px';
-      bulletElement.style.bottom = y + 'px';
+      self.y = startY + Vy * flightTime - (0.5)*(settings.gravity)*(flightTime)*(flightTime);
+      bulletElement.style.left = self.x + 'px';
+      bulletElement.style.bottom = self.y + 'px';
 
       if(settings.walls){
         wall();
@@ -68,8 +75,8 @@ var Bullet = function(settings, startX, startY, power, angle) {
       bulletElement = document.createElement('div');
       bulletElement.id = 'bulletElem';
       //starting position of bullet
-      bulletElement.style.bottom = y + 'px';
-      bulletElement.style.left = x + 'px';
+      bulletElement.style.bottom = self.y + 'px';
+      bulletElement.style.left = self.x + 'px';
       bulletElement.style.borderRadius = '50%';
       radians = toRadians(angle);
       Vx = power * Math.cos(radians); //how much its going up

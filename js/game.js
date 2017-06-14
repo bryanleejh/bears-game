@@ -181,31 +181,58 @@ var Game = function() {
 
     //player collide with object
     function collision(obj1, obj2) {
-      var rect1 = {x: obj1.x, y: obj1.y, width: obj1.width, height: obj1.height} //player
+      console.log(obj1 + "obj");
+      console.log(obj2 + "obj");
+      var rect1 = {x: obj1.playerX, y: obj1.playerY, width: obj1.width, height: obj1.height} //player
       var rect2 = {x: obj2.x, y: obj2.y, width: obj2.width, height: obj2.height} //projectile
+      console.log(rect1.x);
+      console.log(rect1.y);
+      console.log(rect2.x);
+      console.log(rect2.y);
+      
+      console.log(rect1 + "rect");
+      console.log(rect2 + "rect");
 
-      if (rect1.x < rect2.x + rect2.width &&
-       rect1.x + rect1.width > rect2.x &&
-       rect1.y < rect2.y + rect2.height &&
-       rect1.height + rect1.y > rect2.y) {
+      if ((rect1.x < rect2.x + rect2.width) && (rect1.x + rect1.width > rect2.x) &&
+       (rect1.y < rect2.y + rect2.height) && (rect1.height + rect1.y > rect2.y)) {
+        // if overlap exists, call the collision function
+        console.log("collision detected");
+        obj1.collision(obj2);
+      //by right obj2.collision(obj1) as well
       }
     }
 
     // The render function. It will be called 60/sec
     this.render = function (){
+      // if odd turn, move player 2
       if (settings.turn%2==1) {
         this.assets[1].render(interactions);
-      } if (settings.turn%2==0) {
+      } 
+      // if even turn, move player 1
+      if (settings.turn%2==0) {
         this.assets[0].render(interactions);
       }
+      // render bullet and deal with collision
       for(var i=2; i < this.assets.length; i++){
         this.assets[i].render(interactions);
+          // if turn is odd, check collision with bullet and player 1
+          if (settings.turn%2==1) {
+            if(this.assets.length > 2) {
+              collision(this.assets[1], this.assets[2]);
+            }
+          }
+          // if turn is even, check collision with bullet and player 2
+          if (settings.turn%2==0) {
+            if(this.assets.length > 2) {
+              collision(this.assets[0], this.assets[2]);
+            }
+          }
       }
-
       handleTime();
       turnChecker();
       updateHP();
       checkWin();
+      // player.collision(bullet);
       if (settings.audio) {
         bgmAudio.play();
       }
