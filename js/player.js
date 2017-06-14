@@ -27,7 +27,7 @@ var Player = function(settings, playerX, playerY, player) {
       var h = parseInt(window.innerHeight, 10);
 
       if(cannonRect.bottom > h){
-        cannonElement.style.top = (h-cannonRect.height) + 'px';
+        cannonElement.style.top = (h - cannonRect.height) + 'px';
       }
 
       if(cannonRect.top < 0){
@@ -39,7 +39,7 @@ var Player = function(settings, playerX, playerY, player) {
       }
 
       if(cannonRect.right > w){
-          cannonElement.style.left = ( w - cannonRect.width) + 'px' ;
+          cannonElement.style.left = (w - cannonRect.width) + 'px' ;
       }
     }
 
@@ -79,9 +79,8 @@ var Player = function(settings, playerX, playerY, player) {
         }
       }
 
-      //control cannon angle
       if(interactions.left){
-        cannonElement.style.transform = 'rotate(' + (parseInt(cannonAngle)+1) + 'deg)';
+        cannonElement.style.transform = 'rotate(' + (parseInt(cannonAngle, 10)+1) + 'deg)';
         cannonAngle = (cannonAngle + 1)%360;
         adjustedAngle = 90 - cannonAngle;
         playerElement.innerHTML = 'angle: ' + adjustedAngle;
@@ -89,28 +88,24 @@ var Player = function(settings, playerX, playerY, player) {
       }
 
       if(interactions.right){
-        cannonElement.style.transform = 'rotate(' + (parseInt(cannonAngle)-1) + 'deg)';
+        cannonElement.style.transform = 'rotate(' + (parseInt(cannonAngle, 10)-1) + 'deg)';
         cannonAngle = (cannonAngle - 1)%360;
         adjustedAngle = 90 - cannonAngle;
         playerElement.innerHTML = 'angle: ' + adjustedAngle;
         angleElement.innerHTML = adjustedAngle;
       }
 
-      //on fire keyup, fire and set interactions false,
-      //to prevent infinite firing
       if(interactions.space == true && (settings.bulletActive == false)){
         fire();
         interactions.space = false;
       }
 
-      //move player left
       if(interactions.z) {
         self.playerX = self.playerX - 1;
         cannonElement.style.left = self.playerX + 15 + 'px';
         playerElement.style.left = self.playerX + 'px';
       }
 
-      //move player right
       if(interactions.x) {
         self.playerX = self.playerX + 1;
         cannonElement.style.left = self.playerX + 15 + 'px';
