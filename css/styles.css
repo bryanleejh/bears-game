@@ -20,8 +20,8 @@ html,body {
 }
 
 #cannon1 {
-  height: 0px;
-  width: 0px;
+  height: 0;
+  width: 0;
   background-color: pink;
   position: absolute;
 }
@@ -34,8 +34,8 @@ html,body {
 }
 
 #cannon2 {
-  height: 0px;
-  width: 0px;
+  height: 0;
+  width: 0;
   background-color: lightskyblue;
   position: absolute;
 }
