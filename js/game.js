@@ -1,5 +1,4 @@
 var Game = function() {
-    // Game settings
     var settings = {};                     // Containes all game settings
     settings.ballSpeed = 8;                // The speed of the ball
     settings.walls = true;                 // The ball can not go outside the screen
@@ -7,27 +6,20 @@ var Game = function() {
     settings.godmode = false;              // Debug mode
     settings.gravity = 10;
     settings.frame = 0;
-    //settings.gameboard = document.getElementById("gameboard");
     settings.turn = 0;
     settings.win = false;
     settings.audio = true; //playing
-    
-    //for player movement and also hitbox calculation
     settings.player1pos = {};
     settings.player1pos.x = 100;
     settings.player1pos.y = 0;
     settings.player2pos = {};
     settings.player2pos.x = 1100;
     settings.player2pos.y = 0;
-    
     settings.bulletActive = false;
 
-    // World settings
     this.assets = [];                      // All game objects
-
     var player1 = new Player(settings, settings.player1pos.x, settings.player1pos.y, "1");      // The player
     this.assets.push(player1);
-
     var player2 = new Player(settings, settings.player2pos.x, settings.player2pos.y, "2");
     this.assets.push(player2);
 
@@ -39,7 +31,6 @@ var Game = function() {
     var p2HpElement = document.getElementById("player2hpVal");
     var bgmAudio = new Audio('assets/mario.mp3');
 
-    // Interactions
     var interactions = {};
     interactions.up = false;              // Up arrow key pressed
     interactions.down = false;            // Down arrow key pressed

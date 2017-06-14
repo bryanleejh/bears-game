@@ -17,8 +17,8 @@ var Bullet = function(settings, startX, startY, power, angle) {
     function wall() {
       //getBoundingClientRect determines boundaries
       var bulletRect = bulletElement.getBoundingClientRect();
-      var w = parseInt(window.innerWidth);
-      var h = parseInt(window.innerHeight);
+      var w = parseInt(window.innerWidth, 10);
+      var h = parseInt(window.innerHeight, 10);
 
       if(bulletRect.bottom > h){
         document.getElementById('gameboard').removeChild(bulletElement);

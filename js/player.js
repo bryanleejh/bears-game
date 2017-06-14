@@ -23,8 +23,8 @@ var Player = function(settings, playerX, playerY, player) {
     function wall() {
       //getBoundingClientRect determines boundaries
       var cannonRect = cannonElement.getBoundingClientRect();
-      var w = parseInt(window.innerWidth);
-      var h = parseInt(window.innerHeight);
+      var w = parseInt(window.innerWidth, 10);
+      var h = parseInt(window.innerHeight, 10);
 
       if(cannonRect.bottom > h){
         cannonElement.style.top = (h-cannonRect.height) + 'px';
