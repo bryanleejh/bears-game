@@ -205,7 +205,7 @@ var Game = function() {
     // The render function. It will be called 60/sec
     this.render = function (){
       // if odd turn, move player 2
-      if (settings.turn%2==1) {
+      if (settings.turn%2===1) {
         this.assets[1].render(interactions);
       } 
       // if even turn, move player 1
@@ -216,13 +216,13 @@ var Game = function() {
       for(var i=2; i < this.assets.length; i++){
         this.assets[i].render(interactions);
           // if turn is odd, check collision with bullet and player 1
-          if (settings.turn%2==1) {
+          if (settings.turn%2===1) {
             if(this.assets.length > 2) {
               collision(this.assets[1], this.assets[2]);
             }
           }
           // if turn is even, check collision with bullet and player 2
-          if (settings.turn%2==0) {
+          if (settings.turn%2===0) {
             if(this.assets.length > 2) {
               collision(this.assets[0], this.assets[2]);
             }
